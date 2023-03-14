@@ -1,12 +1,12 @@
 #ifndef RPN_HPP
 # define RPN_HPP
 # include <iostream>
-# include <stack>
+# include <deque>
 
 class RPN
 {
 private:
-	std::stack<int>	_st;
+	std::deque<int>	_st;
 	RPN(RPN const &);
 	RPN		&operator=(RPN const &);
 
