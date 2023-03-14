@@ -4,19 +4,24 @@
 # include <map>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 
 class BitcoinExchange
 {
 private:
-	static std::map<std::string, int>	dataCsv;
-
-  std::map<std::string, int>	_input;
+	std::map<std::string, float>	_data;
 	BitcoinExchange(BitcoinExchange const &);
 	BitcoinExchange		&operator=(BitcoinExchange const &);
 
+  bool  _validateKey(std::string year, std::string month, std::string day);
+  std::string _setKey(std::string year, std::string month, std::string day);
+  bool  _validateValue(std::string value);
+
 public:
-	BitcoinExchange();
+	BitcoinExchange(std::map<std::string, float>	data);
 	~BitcoinExchange();
+
+  void  calcRate(std::string line);
 };
 
 #endif
