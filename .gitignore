@@ -6,3 +6,5 @@
 !*.sh
 !Makefile
 !data.csv
+!input.txt
+!input2.txt
