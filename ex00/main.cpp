@@ -14,6 +14,11 @@ std::map<std::string, float>  convertCsvToMap(std::string path)
   {
     if (line == "date,exchange_rate")
       continue;
+    if (line.size() < 12)
+    {
+      std::cerr << "Error: could not open file." << std::endl;
+      std::exit(1);
+    }
     std::string key = line.substr(0, 10);
     std::string value = line.substr(11, line.size() - 11);
     std::istringstream(value) >> ret[key];
