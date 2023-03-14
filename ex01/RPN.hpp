@@ -7,19 +7,25 @@ class RPN
 {
 private:
 	std::deque<int>	_st;
+	bool						_valid;
+	char						*_arg;
+	int							_index;
 	RPN(RPN const &);
 	RPN		&operator=(RPN const &);
 
+	bool	_validateArgs(char *arg);
+	int	_getNumFromArg();
+	std::string _getOperatorFromArg();
+	void	_setNum();
+  void  _calc();
+
 public:
-	RPN(int first);
+	RPN(char *arg);
 	~RPN();
 
-	void	setNum(int newItem);
-  void  calc(std::string newOperator);
-  int get_st();
-
+	void	calcRPN();
+  int		get_st();
+	bool	get_valid();
 };
-
-std::ostream	&operator<<(std::ostream &, RPN const&);
 
 #endif
