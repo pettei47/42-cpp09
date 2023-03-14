@@ -12,7 +12,7 @@ bool  PmergeMe::_validArgs(char **arg) {
   while (arg[i]) {
     int j = 0;
     while (arg[i][j]) {
-      if (!::isdigit(arg[i][j]))
+      if (!std::isdigit(arg[i][j]))
         return false;
       j++;
     }
