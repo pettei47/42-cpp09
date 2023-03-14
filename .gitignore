@@ -5,3 +5,4 @@
 !*.hpp
 !*.sh
 !Makefile
+!data.csv
