@@ -48,8 +48,9 @@ void  PmergeMe::_sortAsVector() {
   ::clock_gettime(CLOCK_MONOTONIC_RAW, &start);
   std::sort(_before.begin(), _before.end());
   ::clock_gettime(CLOCK_MONOTONIC_RAW, &end);
-  _vecTime = (end.tv_sec - start.tv_sec) * 1000000L 
-            + (end.tv_nsec - start.tv_nsec) / 1000;
+  double runSec = end.tv_sec - start.tv_sec;
+  double runNSec = end.tv_nsec - start.tv_nsec;
+  _vecTime = (runSec * 1000000L) + (runNSec / 1000);
   std::cout << "Time to process a range of "
             << _countElem
             << "elements with std::vector : "
@@ -63,11 +64,12 @@ void  PmergeMe::_sortAsList() {
   ::clock_gettime(CLOCK_MONOTONIC_RAW, &start);
   _beforeList.sort();
   ::clock_gettime(CLOCK_MONOTONIC_RAW, &end);
-  _listTime = (end.tv_sec - start.tv_sec) * 1000000L 
-            + (end.tv_nsec - start.tv_nsec) / 1000;
+  double runSec = end.tv_sec - start.tv_sec;
+  double runNSec = (end.tv_nsec - start.tv_nsec);
+  _listTime = (runSec * 1000000L) + (runNSec / 1000);
   std::cout << "Time to process a range of "
           << _countElem
-          << "elements with std::vector : "
+          << "elements with std::list : "
           << _listTime << " us"
           << std::endl;
 }
