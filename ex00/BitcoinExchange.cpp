@@ -2,7 +2,6 @@
 
 BitcoinExchange::BitcoinExchange(std::map<std::string, float>	data) {
   _data = data;
-  // このタイミングで、抜けてるキーを補填する？
 }
 
 BitcoinExchange::~BitcoinExchange() {}
