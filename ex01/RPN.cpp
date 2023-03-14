@@ -20,7 +20,7 @@ bool RPN::_validateArgs(char *arg)
   {
     if (i % 2 == 1 && arg[i] != ' ')
       return false;
-    if ((i == 0 || i % 4 == 2) && !::isdigit(arg[i]))
+    if ((i == 0 || i % 4 == 2) && !std::isdigit(arg[i]))
       return false;
     if (i > 0 && i % 4 == 0 && ops.find(arg[i]) == std::string::npos)
       return false;
