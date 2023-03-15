@@ -53,7 +53,7 @@ void  PmergeMe::_sortAsVector() {
   _vecTime = (runSec * 1000000L) + (runNSec / 1000);
   std::cout << "Time to process a range of "
             << _countElem
-            << "elements with std::vector : "
+            << " elements with std::vector : "
             << _vecTime << " us"
             << std::endl;
 }
@@ -69,7 +69,7 @@ void  PmergeMe::_sortAsList() {
   _listTime = (runSec * 1000000L) + (runNSec / 1000);
   std::cout << "Time to process a range of "
           << _countElem
-          << "elements with std::list : "
+          << " elements with std::list : "
           << _listTime << " us"
           << std::endl;
 }
