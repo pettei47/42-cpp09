@@ -19,6 +19,8 @@ bool  PmergeMe::_validArgs(char **arg) {
     long num = std::strtol(arg[i],NULL, 10);
     if (num < 1)
       return false;
+    if (_after.find(num) != _after.end())
+      return false;
     _before.push_back(num);
     _beforeList.push_back(num);
     _after.insert(num);
