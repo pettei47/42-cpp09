@@ -1,7 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-std::map<std::string, float>  convertCsvToMap(std::string path)
-{
+std::map<std::string, float>  convertCsvToMap(std::string path) {
   std::ifstream dataCsv(path);
   if (dataCsv.fail())
   {
@@ -26,8 +25,7 @@ std::map<std::string, float>  convertCsvToMap(std::string path)
   return ret;
 }
 
-void  printDataMap(std::map<std::string, float> map)
-{
+void  printDataMap(std::map<std::string, float> map) {
   for(std::map<std::string, float>::iterator itr = map.begin();
       itr != map.end(); ++itr) {
     std::cout << "key = " << itr->first
@@ -35,8 +33,7 @@ void  printDataMap(std::map<std::string, float> map)
   }
 }
 
-int main (int argc, char **argv)
-{
+int main (int argc, char **argv) {
   if (argc != 2)
   {
     std::cerr << "Error: could not open file." << std::endl;
