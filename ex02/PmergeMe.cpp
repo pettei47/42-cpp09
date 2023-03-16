@@ -8,13 +8,10 @@ PmergeMe::PmergeMe(int count, char **arg) {
 PmergeMe::~PmergeMe() {}
 
 bool  PmergeMe::_validArgs(char **arg) {
-	int i = 0;
-	while (arg[i]) {
-		int j = 0;
-		while (arg[i][j]) {
+	for (int i = 0; arg[i]; i++) {
+		for (int j = 0; arg[i][j]; j++) {
 			if (!std::isdigit(arg[i][j]))
 				return false;
-			j++;
 		}
 		long num = std::strtol(arg[i],NULL, 10);
 		if (num < 1)
@@ -24,7 +21,6 @@ bool  PmergeMe::_validArgs(char **arg) {
 		_before.push_back(num);
 		_beforeDeque.push_back(num);
 		_after.insert(num);
-		i++;
 	}
 	return true;
 }
