@@ -2,25 +2,28 @@
 
 std::map<std::string, float>  convertCsvToMap(std::string path) {
   std::ifstream dataCsv(path);
-  if (dataCsv.fail())
-  {
-    std::cerr << "Error: could not open file." << std::endl;
+  if (dataCsv.fail()) {
+    std::cerr << "Error: could not read `data.csv`." << std::endl;
     std::exit(1);
   }
   std::map<std::string, float>  ret;
   std::string line;
-  while (std::getline(dataCsv, line))
-  {
+  while (std::getline(dataCsv, line)) {
     if (line == "date,exchange_rate")
       continue;
-    if (line.size() < 12 || line.find(",") == std::string::npos)
-    {
-      std::cerr << "Error: could not open file." << std::endl;
+    size_t comma = line.find(",");
+    size_t comma2 = line.find(",", comma + 1);
+    if (line.size() < 12 || comma == std::string::npos || comma2 != std::string::npos) {
+      std::cerr << "Error: invalid `data.csv`." << std::endl;
       std::exit(1);
     }
-    std::string key = line.substr(0, 10);
-    std::string value = line.substr(11, line.size() - 11);
+    std::string key = line.substr(0, comma);
+    std::string value = line.substr(comma + 1, line.size() - comma - 1);
     std::istringstream(value) >> ret[key];
+  }
+  if (ret.size() == 0) {
+    std::cerr << "Error: invalid `data.csv`." << std::endl;
+    std::exit(1);
   }
   return ret;
 }
@@ -34,8 +37,7 @@ void  printDataMap(std::map<std::string, float> map) {
 }
 
 int main (int argc, char **argv) {
-  if (argc != 2)
-  {
+  if (argc != 2) {
     std::cerr << "Error: could not open file." << std::endl;
     return 1;
   }
@@ -43,9 +45,8 @@ int main (int argc, char **argv) {
   // std::map<std::string, float> data = convertCsvToMap("./ngData.csv");
   // printDataMap(data);
   std::ifstream input(argv[1]);
-  if (input.fail())
-  {
-    std::cerr << "Error: could not open file." << std::endl;
+  if (input.fail()) {
+    std::cerr << "Error: could not read input file." << std::endl;
     return 1;
   }
 
