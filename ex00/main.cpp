@@ -13,7 +13,7 @@ std::map<std::string, float>  convertCsvToMap(std::string path) {
   {
     if (line == "date,exchange_rate")
       continue;
-    if (line.size() < 12)
+    if (line.size() < 12 || line.find(",") == std::string::npos)
     {
       std::cerr << "Error: could not open file." << std::endl;
       std::exit(1);
