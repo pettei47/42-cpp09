@@ -40,6 +40,7 @@ int main (int argc, char **argv) {
     return 1;
   }
   std::map<std::string, float> data = convertCsvToMap("./data.csv");
+  // std::map<std::string, float> data = convertCsvToMap("./ngData.csv");
   // printDataMap(data);
   std::ifstream input(argv[1]);
   if (input.fail())
