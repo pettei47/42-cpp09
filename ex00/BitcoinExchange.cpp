@@ -6,6 +6,22 @@ BitcoinExchange::BitcoinExchange(std::map<std::string, float>	data) {
 
 BitcoinExchange::~BitcoinExchange() {}
 
+bool  BitcoinExchange::_validateLine(std::string line) {
+  if (line.size() < 13)
+    return false;
+  for (int i = 0; i < 13; i++) {
+    if (!std::isdigit(line[i]) && (i < 4 || i == 5 || i == 6 || i == 8 || i == 9))
+      return false;
+    if (line[i] != '-' && (i == 4 || i == 7))
+      return false;
+    if (line[i] != ' ' && (i == 10 || i == 12))
+      return false;
+    if (line[i] != '|' && i == 11)
+      return false;
+  }
+  return true;
+}
+
 bool  BitcoinExchange::_validateKey(std::string y, std::string m, std::string d) {
   int year;
   std::istringstream(y) >> year;
@@ -14,7 +30,7 @@ bool  BitcoinExchange::_validateKey(std::string y, std::string m, std::string d)
   int day;
   std::istringstream(d) >> day;
 
-  if (year > 2022 || month == 0 || 12 < month || day == 0 || 31 < day)
+  if (year < 2009 || 2022 < year || month == 0 || 12 < month || day == 0 || 31 < day)
     return false;
   if (month == 2 && day > 28 && year % 4 != 0)
     return false;
@@ -73,10 +89,12 @@ std::string BitcoinExchange::_setKey(std::string y, std::string m, std::string d
 bool  BitcoinExchange::_validateValue(std::string value) {
   int dot = 0;
   for (size_t i = 0; i < value.size(); i++) {
-    if (!std::isdigit(value[i]) && value[i] != '.' && dot < 2)
+    if (!std::isdigit(value[i]) && value[i] != '.')
       return false;
     if (value[i] == '.')
       dot++;
+    if (dot > 1)
+      return false;
   }
   return true;
 }
@@ -84,9 +102,7 @@ bool  BitcoinExchange::_validateValue(std::string value) {
 void  BitcoinExchange::calcRate(std::string line) {
   if (line == "date | value")
     return;
-  int spacePos = line.find(" ", 0);
-  int pipePos = line.find("|", 0);
-  if (spacePos != 10 || pipePos != 11 || line.size() < 13) {
+  if (!_validateLine(line)) {
     std::cerr << "Error: bad input => " << line << std::endl;
     return;
   }

@@ -13,6 +13,7 @@ private:
 	BitcoinExchange(BitcoinExchange const &);
 	BitcoinExchange		&operator=(BitcoinExchange const &);
 
+	bool  _validateLine(std::string line);
   bool  _validateKey(std::string year, std::string month, std::string day);
   std::string _setKey(std::string year, std::string month, std::string day);
   bool  _validateValue(std::string value);
