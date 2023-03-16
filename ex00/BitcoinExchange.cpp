@@ -120,8 +120,7 @@ void  BitcoinExchange::calcRate(std::string line) {
     std::cerr << "Error: bad input => " << line << std::endl;
     return;
   }
-  if (!_validateValue(strValue))
-  {
+  if (!_validateValue(strValue)) {
     std::cerr << "Error: not a positive number."
               << std::endl;
     return;
