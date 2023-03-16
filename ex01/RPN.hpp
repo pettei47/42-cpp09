@@ -6,6 +6,7 @@
 class RPN
 {
 private:
+	static std::string	ops;
 	std::deque<int>	_st;
 	bool						_valid;
 	char						*_arg;

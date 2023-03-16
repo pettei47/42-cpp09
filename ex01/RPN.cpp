@@ -1,44 +1,43 @@
 #include "RPN.hpp"
 
+std::string	RPN::ops = "+-*/";
+
 RPN::RPN(char *arg) {
   _valid = _validateArgs(arg);
   if (_valid) {
     _arg = arg;
     _index = 0;
-    _st.push_back(_getNumFromArg());
-    _index = 2;
   }
 }
 
 RPN::~RPN() {}
 
-bool RPN::_validateArgs(char *arg)
-{
-  int i = 0;
-  std::string ops("+-*/");
-  while (arg[i])
-  {
-    if (i % 2 == 1 && arg[i] != ' ')
+bool RPN::_validateArgs(char *arg) {
+  int   counter = 0;
+  bool  first = true;
+  for (int i = 0; arg[i]; i++) {
+    if (arg[i] == ' ')
+      continue;
+    else if (first && std::isdigit(arg[i]))
+      first = false;
+    else if (counter == 0 && std::isdigit(arg[i]))
+      counter++;
+    else if (counter == 1 && ops.find(arg[i]) != std::string::npos)
+      counter = 0;
+    else 
       return false;
-    if ((i == 0 || i % 4 == 2) && !std::isdigit(arg[i]))
-      return false;
-    if (i > 0 && i % 4 == 0 && ops.find(arg[i]) == std::string::npos)
-      return false;
-    i++;
   }
-  if ((i - 1) % 4 != 0)
+  if (counter != 0)
     return false;
   return true;
 }
 
 
-int RPN::_getNumFromArg()
-{
+int RPN::_getNumFromArg() {
   return _arg[_index] - '0';
 }
 
-std::string RPN::_getOperatorFromArg()
-{
+std::string RPN::_getOperatorFromArg() {
   std::string o(1, _arg[_index]);
   return o;
 }
@@ -49,23 +48,22 @@ void  RPN::_setNum() {
 
 void  RPN::_calc() {
   std::string o = _getOperatorFromArg();
-  int l = _st.back();
-  _st.pop_back();
   int r = _st.back();
   _st.pop_back();
-  std::string ops = "+-*/";
+  int l = _st.back();
+  _st.pop_back();
   switch (ops.find(o)) {
     case 0:
-      _st.push_back(r + l);
+      _st.push_back(l + r);
       break;
     case 1:
-      _st.push_back(r - l);
+      _st.push_back(l - r);
       break;
     case 2:
-      _st.push_back(r * l);
+      _st.push_back(l * r);
       break;
     case 3:
-      _st.push_back(r / l);
+      _st.push_back(l / r);
       break;
     default:
       std::cerr << "Error calc"<< o << std::endl;
@@ -73,12 +71,23 @@ void  RPN::_calc() {
 }
 
 void	RPN::calcRPN() {
-  while (_arg[_index]) {
-    if (_index % 4 == 2)
+  int   counter = 0;
+  bool  first = true;
+  for (; _arg[_index]; _index++) {
+    if (_arg[_index] == ' ')
+      continue;
+    else if (first && std::isdigit(_arg[_index])) {
       _setNum();
-    else if (_index % 4 == 0)
+      first = false;
+    }
+    else if (counter == 0 && std::isdigit(_arg[_index])) {
+      _setNum();
+      counter++;
+    }
+    else if (counter == 1 && ops.find(_arg[_index]) != std::string::npos) {
       _calc();
-    _index++;
+      counter = 0;
+    }
   }
 }
 
