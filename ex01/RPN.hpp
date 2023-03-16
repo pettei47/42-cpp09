@@ -1,13 +1,13 @@
 #ifndef RPN_HPP
 # define RPN_HPP
 # include <iostream>
-# include <deque>
+# include <list>
 
 class RPN
 {
 private:
 	static std::string	ops;
-	std::deque<int>	_st;
+	std::list<int>	_st;
 	bool						_valid;
 	char						*_arg;
 	int							_index;
