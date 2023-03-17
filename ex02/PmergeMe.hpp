@@ -10,7 +10,7 @@ class PmergeMe
 private:
 	std::vector<long> _before;
 	std::deque<long>	_beforeDeque;
-	std::set<long> 		_after;
+	std::multiset<long> 		_after;
 	int								_countElem;
 	double						_vecTime;
 	double						_dequeTime;
