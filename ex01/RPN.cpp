@@ -48,9 +48,11 @@ void  RPN::_setNum() {
 
 bool  RPN::_calc() {
   std::string o = _getOperatorFromArg();
-  int r = _st.back();
+  long r = _st.back();
   _st.pop_back();
-  int l = _st.back();
+  long l = _st.back();
+  if (l > INT_MAX)
+    return false;
   _st.pop_back();
   switch (ops.find(o)) {
     case 0:
@@ -97,7 +99,7 @@ void	RPN::calcRPN() {
   }
 }
 
-int RPN::get_st() {
+long RPN::get_st() {
   return _st.back();
 }
 

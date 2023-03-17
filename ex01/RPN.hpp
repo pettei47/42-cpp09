@@ -7,7 +7,7 @@ class RPN
 {
 private:
 	static std::string	ops;
-	std::list<int>	_st;
+	std::list<long>	_st;
 	bool						_valid;
 	char						*_arg;
 	int							_index;
@@ -25,7 +25,7 @@ public:
 	~RPN();
 
 	void	calcRPN();
-  int		get_st();
+  long	get_st();
 	bool	get_valid();
 };
 
