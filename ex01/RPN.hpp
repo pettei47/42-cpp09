@@ -18,7 +18,7 @@ private:
 	int	_getNumFromArg();
 	std::string _getOperatorFromArg();
 	void	_setNum();
-  void  _calc();
+  bool  _calc();
 
 public:
 	RPN(char *arg);

@@ -46,7 +46,7 @@ void  RPN::_setNum() {
   _st.push_back(_getNumFromArg());
 }
 
-void  RPN::_calc() {
+bool  RPN::_calc() {
   std::string o = _getOperatorFromArg();
   int r = _st.back();
   _st.pop_back();
@@ -63,11 +63,14 @@ void  RPN::_calc() {
       _st.push_back(l * r);
       break;
     case 3:
-      _st.push_back(l / r);
-      break;
+      if(r != 0) {
+        _st.push_back(l / r);
+        break;
+      }
     default:
-      std::cerr << "Error calc"<< o << std::endl;
+      return false;
   }
+  return true;
 }
 
 void	RPN::calcRPN() {
@@ -85,7 +88,10 @@ void	RPN::calcRPN() {
       counter++;
     }
     else if (counter == 1 && ops.find(_arg[_index]) != std::string::npos) {
-      _calc();
+      if (!_calc()) {
+        _valid = false;
+        return ;
+      }
       counter = 0;
     }
   }
