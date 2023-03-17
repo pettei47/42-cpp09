@@ -13,7 +13,8 @@ bool  PmergeMe::_validArgs(char **arg) {
 			if (!std::isdigit(arg[i][j]))
 				return false;
 		}
-		long num = std::strtol(arg[i], NULL, 10);
+		long num;
+		std::istringstream(arg[i]) >> num;
 		if (num < 1)
 			return false;
 		_before.push_back(num);
