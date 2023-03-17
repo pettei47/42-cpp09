@@ -103,32 +103,32 @@ void  BitcoinExchange::calcRate(std::string line) {
   if (line == "date | value")
     return;
   if (!_validateLine(line)) {
-    std::cerr << "Error: bad input => " << line << std::endl;
+    std::cout << "Error: bad input => " << line << std::endl;
     return;
   }
   std::string year =  line.substr(0, 4);
   std::string month =  line.substr(5, 2);
   std::string day =  line.substr(8, 2);
   if (!_validateKey(year, month, day)) {
-    std::cerr << "Error: bad input => " << line << std::endl;
+    std::cout << "Error: bad input => " << line << std::endl;
     return;
   }
   std::string date = line.substr(0, 10);
   std::string key = _setKey(year, month, day);
   std::string strValue = line.substr(13, line.size() - 13);
   if (strValue.empty()) {
-    std::cerr << "Error: bad input => " << line << std::endl;
+    std::cout << "Error: bad input => " << line << std::endl;
     return;
   }
   if (!_validateValue(strValue)) {
-    std::cerr << "Error: not a positive number."
+    std::cout << "Error: not a positive number."
               << std::endl;
     return;
   }
   float value;
   std::istringstream(strValue) >> value;
   if (value > 1000) {
-    std::cerr << "Error: too large a number."
+    std::cout << "Error: too large a number."
               << std::endl;
     return;
   }

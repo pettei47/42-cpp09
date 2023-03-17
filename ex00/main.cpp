@@ -3,7 +3,7 @@
 std::map<std::string, float>  convertCsvToMap(std::string path) {
   std::ifstream dataCsv(path);
   if (dataCsv.fail()) {
-    std::cerr << "Error: could not read `data.csv`." << std::endl;
+    std::cout << "Error: could not read `data.csv`." << std::endl;
     std::exit(1);
   }
   std::map<std::string, float>  ret;
@@ -14,7 +14,7 @@ std::map<std::string, float>  convertCsvToMap(std::string path) {
     size_t comma = line.find(",");
     size_t comma2 = line.find(",", comma + 1);
     if (line.size() < 12 || comma == std::string::npos || comma2 != std::string::npos) {
-      std::cerr << "Error: invalid `data.csv`." << std::endl;
+      std::cout << "Error: invalid `data.csv`." << std::endl;
       std::exit(1);
     }
     std::string key = line.substr(0, comma);
@@ -22,7 +22,7 @@ std::map<std::string, float>  convertCsvToMap(std::string path) {
     std::istringstream(value) >> ret[key];
   }
   if (ret.size() == 0) {
-    std::cerr << "Error: invalid `data.csv`." << std::endl;
+    std::cout << "Error: invalid `data.csv`." << std::endl;
     std::exit(1);
   }
   return ret;
@@ -38,7 +38,7 @@ void  printDataMap(std::map<std::string, float> map) {
 
 int main (int argc, char **argv) {
   if (argc != 2) {
-    std::cerr << "Error: could not open file." << std::endl;
+    std::cout << "Error: could not open file." << std::endl;
     return 1;
   }
   std::map<std::string, float> data = convertCsvToMap("./data.csv");
@@ -46,7 +46,7 @@ int main (int argc, char **argv) {
   // printDataMap(data);
   std::ifstream input(argv[1]);
   if (input.fail()) {
-    std::cerr << "Error: could not read input file." << std::endl;
+    std::cout << "Error: could not read input file." << std::endl;
     return 1;
   }
 

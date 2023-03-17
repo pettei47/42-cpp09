@@ -9,13 +9,13 @@
 class PmergeMe
 {
 private:
-	std::vector<long> _before;
-	std::deque<long>	_beforeDeque;
-	std::multiset<long> 		_after;
-	int								_countElem;
-	double						_vecTime;
-	double						_dequeTime;
-	bool							_valid;
+	std::vector<long> 	_before;
+	std::deque<long>		_beforeDeque;
+	std::multiset<long> _after;
+	int									_countElem;
+	double							_vecTime;
+	double							_dequeTime;
+	bool								_valid;
 	PmergeMe(PmergeMe const &);
 	PmergeMe		&operator=(PmergeMe const &);
 
