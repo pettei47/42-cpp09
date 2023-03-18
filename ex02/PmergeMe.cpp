@@ -9,10 +9,13 @@ PmergeMe::~PmergeMe() {}
 
 bool	PmergeMe::_validArgs(char **arg) {
 	for (int i = 0; arg[i]; i++) {
-		for (int j = 0; arg[i][j]; j++) {
+		int j = 0;
+		for (; arg[i][j]; j++) {
 			if (!std::isdigit(arg[i][j]))
 				return false;
 		}
+		if (j == 0)
+			return false;
 		long num;
 		std::istringstream(arg[i]) >> num;
 		if (num < 1)

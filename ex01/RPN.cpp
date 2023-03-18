@@ -13,15 +13,18 @@ RPN::RPN(char *arg) {
 RPN::~RPN() {}
 
 bool RPN::_validateArgs(char *arg) {
+	int numCount = 0;
 	for (int i = 0; arg[i]; i++) {
 		if (arg[i] == ' ')
 			continue;
 		if(!std::isdigit(arg[i]) && ops.find(arg[i]) == std::string::npos)
 			return false;
-		if (!arg[i + 1] && ops.find(arg[i]) == std::string::npos)
-			return false;
 		if (std::isdigit(arg[i]))
+			numCount++;
 	}
+	if (numCount == 0)
+		return false;
+	return true;
 }
 
 int RPN::_getNumFromArg() {
