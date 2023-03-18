@@ -84,6 +84,10 @@ void	RPN::calcRPN() {
         return ;
     }
   }
+  if (_st.size() != 1) {
+    std::cout << "Error: cannot calculate (not RPN)" << std::endl;
+    _valid = false;
+  }
 }
 
 long RPN::get_st() {
