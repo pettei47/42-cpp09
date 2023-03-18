@@ -6,7 +6,7 @@
 #    By: teppei <teppei@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/08 15:13:10 by teppei            #+#    #+#              #
-#    Updated: 2023/03/13 21:44:54 by teppei           ###   ########.fr        #
+#    Updated: 2023/03/18 20:09:33 by teppei           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,6 @@ $(NAME): $(OBJS)
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
 	$(CXX) $(CFLAG) $(INCLUDES) -o $@ -c $<
 
-debug:
-	$(CXX) -g $(CFLAG) *.cpp
-
 clean:
 	rm -f $(OBJS)
 
@@ -41,4 +38,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re test check
+.PHONY: clean fclean all re
