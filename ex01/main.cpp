@@ -11,9 +11,7 @@ int main(int argc, char **argv) {
     return 1;
   }
   rpn.calcRPN();
-  if (!rpn.get_valid()) {
-    std::cout << "Error: cannot calculate (over INT_MAX or Zero devided)" << std::endl;
+  if (!rpn.get_valid())
     return 1;
-  }
   std::cout << rpn.get_st() << std::endl;
 }

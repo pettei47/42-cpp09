@@ -13,25 +13,16 @@ RPN::RPN(char *arg) {
 RPN::~RPN() {}
 
 bool RPN::_validateArgs(char *arg) {
-  int   counter = 0;
-  bool  first = true;
   for (int i = 0; arg[i]; i++) {
     if (arg[i] == ' ')
       continue;
-    else if (first && std::isdigit(arg[i]))
-      first = false;
-    else if (counter == 0 && std::isdigit(arg[i]))
-      counter++;
-    else if (counter == 1 && ops.find(arg[i]) != std::string::npos)
-      counter = 0;
-    else 
+    if(!std::isdigit(arg[i]) && ops.find(arg[i]) == std::string::npos)
+      return false;
+    if (!arg[i + 1] && ops.find(arg[i]) == std::string::npos)
       return false;
   }
-  if (counter != 0)
-    return false;
   return true;
 }
-
 
 int RPN::_getNumFromArg() {
   return _arg[_index] - '0';
@@ -50,9 +41,15 @@ bool  RPN::_calc() {
   std::string o = _getOperatorFromArg();
   long r = _st.back();
   _st.pop_back();
-  long l = _st.back();
-  if (l > INT_MAX)
+  if (_st.size() == 0) {
+    std::cout << "Error: cannot calculate (not RPN)" << std::endl;
     return false;
+  }
+  long l = _st.back();
+  if (l < INT_MIN || INT_MAX < l) {
+    std::cout << "Error: cannot calculate (over INT_MAX/MIN)" << std::endl;
+    return false;
+  }
   _st.pop_back();
   switch (ops.find(o)) {
     case 0:
@@ -70,31 +67,21 @@ bool  RPN::_calc() {
         break;
       }
     default:
+      std::cout << "Error: cannot calculate (Zero devided)" << std::endl;
       return false;
   }
   return true;
 }
 
 void	RPN::calcRPN() {
-  int   counter = 0;
-  bool  first = true;
   for (; _arg[_index]; _index++) {
     if (_arg[_index] == ' ')
       continue;
-    else if (first && std::isdigit(_arg[_index])) {
+    else if (std::isdigit(_arg[_index]))
       _setNum();
-      first = false;
-    }
-    else if (counter == 0 && std::isdigit(_arg[_index])) {
-      _setNum();
-      counter++;
-    }
-    else if (counter == 1 && ops.find(_arg[_index]) != std::string::npos) {
-      if (!_calc()) {
-        _valid = false;
+    else if (ops.find(_arg[_index]) != std::string::npos) {
+      if (!(_valid = _calc()))
         return ;
-      }
-      counter = 0;
     }
   }
 }
