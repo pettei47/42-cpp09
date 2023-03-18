@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(std::map<std::string, float>	data) {
+BitcoinExchange::BitcoinExchange(BEdata	data) {
 	_data = data;
 }
 

@@ -41,15 +41,16 @@ int main (int argc, char **argv) {
 		std::cout << "Error: could not open file." << std::endl;
 		return 1;
 	}
-	std::map<std::string, float> data = convertCsvToMap("./data.csv");
-	// std::map<std::string, float> data = convertCsvToMap("./ngData.csv");
-	// printDataMap(data);
+
 	std::ifstream input(argv[1]);
 	if (input.fail()) {
 		std::cout << "Error: could not read input file." << std::endl;
 		return 1;
 	}
 
+	std::map<std::string, float> data = convertCsvToMap("./data.csv");
+	// std::map<std::string, float> data = convertCsvToMap("./ngData.csv");
+	// printDataMap(data);
 	BitcoinExchange be(data);
 	std::string line;
 	while (std::getline(input, line)) {
