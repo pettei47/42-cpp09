@@ -30,60 +30,15 @@ bool  BitcoinExchange::_validateKey(std::string y, std::string m, std::string d)
   int day;
   std::istringstream(d) >> day;
 
-  if (year < 2009 || 2022 < year || month == 0 || 12 < month || day == 0 || 31 < day)
+  if (year < 2009 || 2022 < year || month < 1 || 12 < month || day < 1 || 31 < day)
     return false;
-  if (month == 2 && day > 28 && year % 4 != 0)
+  if (month == 2 && day > 29)
     return false;
-  if (month == 2 && day > 29 && year % 4 == 0)
+  if (month == 2 && day == 29 && year % 4 != 0)
     return false;
   if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
     return false;
   return true;
-}
-
-std::string BitcoinExchange::_setKey(std::string y, std::string m, std::string d) {
-  int year;
-  std::istringstream(y) >> year;
-  int month;
-  std::istringstream(m) >> month;
-  int day;
-  std::istringstream(d) >> day;
-
-  while (1) {
-    std::ostringstream sYear;
-    sYear << std::setw(4) << std::setfill('0') << year;
-    std::string strYear(sYear.str());
-    std::ostringstream sMonth;
-    sMonth << std::setw(2) << std::setfill('0') << month;
-    std::string strMonth(sMonth.str());
-    std::ostringstream sDay;
-    sDay << std::setw(2) << std::setfill('0') << day;
-    std::string strDay(sDay.str());
-    std::string tmpKey = strYear + "-" + strMonth + "-" + strDay;
-    if (_data.count(tmpKey) > 0)
-      return tmpKey;
-    // 見つからなければ1日ずつ戻る
-    if (day == 1 && month == 1) {
-      year--;
-      month = 12;
-      day = 31;
-      if (year < 2009)
-        return tmpKey;
-    }
-    else if (day == 1) {
-      month--;
-      if (month == 2 && year % 4 != 0)
-        day = 28;
-      else if (month == 2 && year % 4 == 0)
-        day = 29;
-      else if (month == 4 || month == 6 || month == 9 || month == 11)
-        day = 30;
-      else
-        day = 31;
-    }
-    else
-      day--;
-  }
 }
 
 bool  BitcoinExchange::_validateValue(std::string value) {
@@ -114,23 +69,23 @@ void  BitcoinExchange::calcRate(std::string line) {
     return;
   }
   std::string date = line.substr(0, 10);
-  std::string key = _setKey(year, month, day);
   std::string strValue = line.substr(13, line.size() - 13);
   if (strValue.empty()) {
     std::cout << "Error: bad input => " << line << std::endl;
     return;
   }
   if (!_validateValue(strValue)) {
-    std::cout << "Error: not a positive number."
-              << std::endl;
+    std::cout << "Error: not a positive number." << std::endl;
     return;
   }
   float value;
   std::istringstream(strValue) >> value;
   if (value > 1000) {
-    std::cout << "Error: too large a number."
-              << std::endl;
+    std::cout << "Error: too large a number." << std::endl;
     return;
   }
-  std::cout << date << " => " << value << " = " << _data[key] * value << std::endl;
+  BEdata::iterator  rating = _data.upper_bound(date);
+  if (rating != _data.begin())
+    rating--;
+  std::cout << date << " => " << value << " = " << rating->second * value << std::endl;
 }

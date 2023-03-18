@@ -9,20 +9,20 @@
 class BitcoinExchange
 {
 private:
-	std::map<std::string, float>	_data;
+	typedef std::map<std::string, float>	BEdata;
+	BEdata	_data;
 	BitcoinExchange(BitcoinExchange const &);
 	BitcoinExchange		&operator=(BitcoinExchange const &);
 
-	bool  _validateLine(std::string line);
-  bool  _validateKey(std::string year, std::string month, std::string day);
-  std::string _setKey(std::string year, std::string month, std::string day);
-  bool  _validateValue(std::string value);
+	bool	_validateLine(std::string line);
+	bool	_validateKey(std::string year, std::string month, std::string day);
+	bool	_validateValue(std::string value);
 
 public:
-	BitcoinExchange(std::map<std::string, float>	data);
+	BitcoinExchange(BEdata data);
 	~BitcoinExchange();
 
-  void  calcRate(std::string line);
+	void	calcRate(std::string line);
 };
 
 #endif
