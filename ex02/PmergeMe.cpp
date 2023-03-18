@@ -7,7 +7,7 @@ PmergeMe::PmergeMe(int count, char **arg) {
 
 PmergeMe::~PmergeMe() {}
 
-bool  PmergeMe::_validArgs(char **arg) {
+bool	PmergeMe::_validArgs(char **arg) {
 	for (int i = 0; arg[i]; i++) {
 		for (int j = 0; arg[i][j]; j++) {
 			if (!std::isdigit(arg[i][j]))
@@ -24,14 +24,14 @@ bool  PmergeMe::_validArgs(char **arg) {
 	return true;
 }
 
-void  PmergeMe::_putBefore() {
+void	PmergeMe::_putBefore() {
 	std::cout << "Before: ";
 	for (int i = 0; i < _countElem; i++)
 		std::cout << " " << _before[i];
 	std::cout << std::endl;
 }
 
-void  PmergeMe::_putAfter() {
+void	PmergeMe::_putAfter() {
 	std::cout << "After:  ";
 	std::set<long>::iterator itr = _after.begin();
 	for (; itr != _after.end(); itr++)
@@ -58,7 +58,7 @@ void	PmergeMe::_putSortTime(std::string containerName) {
 						<< std::endl;
 }
 
-void  PmergeMe::exec() {
+void	PmergeMe::exec() {
 	_putBefore();
 	_putAfter();
 	_putSortTime("vector");
@@ -66,6 +66,6 @@ void  PmergeMe::exec() {
 	// _putBefore();
 }
 
-bool  PmergeMe::get_valid() {
+bool	PmergeMe::get_valid() {
 	return _valid;
 }
