@@ -18,14 +18,14 @@ private:
 	int	_getNumFromArg();
 	std::string _getOperatorFromArg();
 	void	_setNum();
-  bool  _calc();
+	bool	_calc();
 
 public:
 	RPN(char *arg);
 	~RPN();
 
 	void	calcRPN();
-  long	get_st();
+	long	get_st();
 	bool	get_valid();
 };
 
