@@ -26,6 +26,11 @@ private:
 
 	template<typename T>
 	void	_insertionSort(T& container, int p, int q) {
+	# if DEBUG_MODE == 1
+		T arr = _copyOfRange(container, p, q);
+		std::cerr << "insert:";
+		_showArray(arr);
+	# endif
 		for (int i = p; i < q; i++) {
 			int tempVal = container[i + 1];
 			int j = i + 1;
@@ -35,6 +40,10 @@ private:
 			}
 			container[j] = tempVal;
 		}
+	# if DEBUG_MODE == 1
+		std::cerr << "now container:";
+		_showArray(container);
+	# endif
 	}
 
 	template<typename T>
@@ -47,11 +56,25 @@ private:
 	}
 
 	template<typename T>
+	void _showArray(T& container) {
+		for (size_t i = 0; i < container.size(); i++) {
+			std::cerr << " " << container[i];
+		}
+		std::cerr << std::endl;
+	}
+
+	template<typename T>
 	void _merge(T& container, int p, int q, int r) {
 		int n1 = q - p + 1;
 		int n2 = r - q;
 		T LA = _copyOfRange(container, p, q + 1);
 		T RA = _copyOfRange(container, q + 1, r + 1);
+	# if DEBUG_MODE == 1
+		std::cerr << "Left :";
+		_showArray(LA);
+		std::cerr << "Right:";
+		_showArray(RA);
+	# endif
 		int RIDX = 0;
 		int LIDX = 0;
 		for (int i = p; i < r - p + 1; i++) {
@@ -69,10 +92,17 @@ private:
 						RIDX++;
 				}
 		}
+	# if DEBUG_MODE == 1
+		std::cerr << "now container:";
+		_showArray(container);
+	# endif
 	}
 
 	template<typename T>
 	void	_mergeInsertionSort(T& container, int p, int r) {
+	# if DEBUG_MODE == 1
+		std::cerr << "mergeInsertion: " << p << "~" << r << std::endl;
+	# endif
 		if (r - p > 5) {
 				int q = (p + r) / 2;
 				_mergeInsertionSort(container, p, q);

@@ -65,8 +65,12 @@ void	PmergeMe::exec() {
 	_putBefore();
 	_putAfter();
 	_putSortTime("vector");
+# if DEBUG_MODE == 1
+	std::cerr << "show sorted container: ";
+	_showArray(_before);
+# else
 	_putSortTime("deque");
-	// _putBefore();
+# endif
 }
 
 bool	PmergeMe::get_valid() {

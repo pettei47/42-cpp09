@@ -6,18 +6,19 @@
 #    By: teppei <teppei@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/08 15:13:10 by teppei            #+#    #+#              #
-#    Updated: 2023/03/18 20:11:03 by teppei           ###   ########.fr        #
+#    Updated: 2023/03/19 13:31:11 by teppei           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXX 		= 	clang++
-NAME 		= 	PmergeMe
-CFLAG 		= 	-Wall -Wextra -Werror -std=c++98
-INCLUDES	=	-I.
-SRCDIR		=	./
-SRCS		=	$(shell ls *.cpp)
-OBJDIR		=	./obj/
-OBJS		=	$(SRCS:%.cpp=$(OBJDIR)%.o)
+CXX 				= 	c++
+NAME 				= 	PmergeMe
+CFLAG 			= 	-Wall -Wextra -Werror -std=c++98
+INCLUDES		=	-I.
+SRCDIR			=	./
+SRCS				=	$(shell ls *.cpp)
+OBJDIR			=	./obj/
+OBJS				=	$(SRCS:%.cpp=$(OBJDIR)%.o)
+DEBUG_MODE	= 0
 
 all: $(OBJDIR) $(NAME)
 
@@ -28,7 +29,7 @@ $(NAME): $(OBJS)
 	$(CXX) $(CFLAG) -o $@ $^
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
-	$(CXX) $(CFLAG) $(INCLUDES) -o $@ -c $<
+	$(CXX) $(CFLAG) -D DEBUG_MODE=$(DEBUG_MODE) $(INCLUDES) -o $@ -c $<
 
 clean:
 	rm -f $(OBJS)
@@ -38,4 +39,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean all re
+debug: 
+	make re DEBUG_MODE=1
+
+.PHONY: clean fclean all re debug
