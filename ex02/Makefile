@@ -6,7 +6,7 @@
 #    By: teppei <teppei@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/08 15:13:10 by teppei            #+#    #+#              #
-#    Updated: 2023/03/19 13:31:11 by teppei           ###   ########.fr        #
+#    Updated: 2023/03/19 13:38:13 by teppei           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,4 +42,6 @@ re: fclean all
 debug: 
 	make re DEBUG_MODE=1
 
-.PHONY: clean fclean all re debug
+undebug: re
+
+.PHONY: clean fclean all re debug undebug
