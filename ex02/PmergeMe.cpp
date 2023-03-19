@@ -18,7 +18,7 @@ bool	PmergeMe::_validArgs(char **arg) {
 			return false;
 		long num;
 		std::istringstream(arg[i]) >> num;
-		if (num < 1)
+		if (num < 1 || INT_MAX < num)
 			return false;
 		_before.push_back(num);
 		_beforeDeque.push_back(num);
